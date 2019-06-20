@@ -11,13 +11,32 @@
 ########################################################
 #Flask2
 
-#!/usr/bin/python3
+#import main Flask class and request object
+from flask import Flask, request
 
+#create the Flask app
+app = Flask(__name__)
+
+
+@app.route('/form-example')
+def formexample():
+    return 'Todo...'
+
+@app.route('/json-example')
+def jsonexample():
+    return 'Todo...'
+
+@app.route('/reverse',methods=['GET', 'POST'])
 def reverse_slicing(s):
     return s[::-1]
+    input_str = 'gmae over'
+    print('Reverse String using slicing =', reverse_slicing(input_str))
+
+
 
 
 if __name__ == "__main__":
-    input_str = 'gmae over'
-    print('Reverse String using slicing =', reverse_slicing(input_str))
+    app.run(debug=True, port=5000)
+
+https://scotch.io/bar-talk/processing-incoming-request-data-in-flask
 
