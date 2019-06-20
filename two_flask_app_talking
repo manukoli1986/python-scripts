@@ -1,0 +1,23 @@
+#Flask1
+
+
+
+
+
+
+
+
+
+########################################################
+#Flask2
+
+#!/usr/bin/python3
+
+def reverse_slicing(s):
+    return s[::-1]
+
+
+if __name__ == "__main__":
+    input_str = 'gmae over'
+    print('Reverse String using slicing =', reverse_slicing(input_str))
+
