@@ -37,6 +37,26 @@ def reverse_slicing(s):
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
+==
+from flask import Flask, request
+from flask_restful import Resource, Api
+import script_via_db
+
+app = Flask(__name__)
+api = Api(app)
+
+@app.route('/check-name/', methods=['POST'])
+def check_name():
+                # print(request.json)
+                fullname = request.json.get('name')
+                return script_via_db.validate_name(fullname)
+
+# api.add_resource(check_name, '/check-name/')
+
+if __name__ == '__main__':
+                script_via_db.init()
+                app.run()
+==
 
 https://scotch.io/bar-talk/processing-incoming-request-data-in-flask
 
