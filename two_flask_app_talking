@@ -11,52 +11,19 @@
 ########################################################
 #Flask2
 
-#import main Flask class and request object
-from flask import Flask, request
+from flask import Flask, request, jsonify
 
-#create the Flask app
 app = Flask(__name__)
 
-
-@app.route('/form-example')
-def formexample():
-    return 'Todo...'
-
-@app.route('/json-example')
-def jsonexample():
-    return 'Todo...'
-
-@app.route('/reverse',methods=['GET', 'POST'])
-def reverse_slicing(s):
-    return s[::-1]
-    input_str = 'gmae over'
-    print('Reverse String using slicing =', reverse_slicing(input_str))
-
-
-
+@app.route('/reverse', methods=['POST'])
+def reverse():
+    req_data = request.get_json()
+    word = req_data['message']
+    output = word[::-1]
+    return jsonify({ "message" : output })
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
-==
-from flask import Flask, request
-from flask_restful import Resource, Api
-import script_via_db
+    app.run(debug=True, host="0.0.0.0", port=5000)
 
-app = Flask(__name__)
-api = Api(app)
 
-@app.route('/check-name/', methods=['POST'])
-def check_name():
-                # print(request.json)
-                fullname = request.json.get('name')
-                return script_via_db.validate_name(fullname)
-
-# api.add_resource(check_name, '/check-name/')
-
-if __name__ == '__main__':
-                script_via_db.init()
-                app.run()
-==
-
-https://scotch.io/bar-talk/processing-incoming-request-data-in-flask
 
