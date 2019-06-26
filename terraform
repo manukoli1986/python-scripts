@@ -1,0 +1,33 @@
+resource "aws_instance" "generic" {
+  ami           = "${var.ami_id}"
+  instance_type = "${var.instance_type}"
+  count         = "${var.node_count}"
+  subnet_id     = "${var.subnet_id}"
+  key_name      = "${var.key_pair}"
+
+  root_block_device = {
+    volume_type           = "gp2"
+    volume_size           = 20
+    delete_on_termination = false
+  }
+
+  vpc_security_group_ids = ["${var.security_group_ids}"]
+}
+
+resource "aws_ebs_volume" "vol_generic_data" {
+  size              = 120
+  count             = "${var.node_count}"
+  type              = "gp2"
+}
+
+resource "aws_volume_attachment" "generic_data_vol_att" {
+  device_name = "/dev/xvdf"
+  volume_id   = "${element(aws_ebs_volume.vol_generic_data.*.id, count.index)}"
+  instance_id = "${element(aws_instance.vol_generic_data.*.id, count.index)}"
+  count       = "${var.node_count}"
+  
+  #####
+  Then, if your instance gets manually terminated TF should detect that the instance is gone but still referenced in TF state and should try to recreate it and attach the existing volume. I have not tried this. However, I have tried importing an existing instance and its volume into TF state so the same logic should apply for just importing the volume alone and attaching to an existing TF managed instance. You should be able to simply import the existing volume like so:
+
+terraform import module.generic.aws_ebs_volume.vol_generic_data vol-0123456789abcdef0
+Then TF will attach the volume or update the state if already attached.
