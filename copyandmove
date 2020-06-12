@@ -1,4 +1,4 @@
-[root@N1VL-PA-APB31 tmp]# cat copy.py
+# cat copy.py
 import os, multiprocessing
 import time
 
@@ -57,4 +57,3 @@ if __name__ == '__main__':
     dict_data = directoryData(path2, phone_number_dict)
     variab = copy(dict_data)
     print(variab)
-[root@N1VL-PA-APB31 tmp]#
