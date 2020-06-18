@@ -14,7 +14,7 @@ except Exception as e:
 #2. Without Session Object.
 
 
-console = boto3.session.Session(aws_access_key_id="AKIAU7SKHABBEZKFUDNY", aws_secret_access_key="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", region_name="ap-south-1")
+console = boto3.session.Session(aws_access_key_id="xxxx", aws_secret_access_key="xxxx", region_name="ap-south-1")
 print(console)
 aws_resource_obj=console.resource(service_name="ec2")
 aws_client_obj=console.client(service_name="ec2")
