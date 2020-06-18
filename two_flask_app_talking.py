@@ -1,16 +1,4 @@
 #Flask1
-
-
-
-
-
-
-
-
-
-########################################################
-#Flask2
-
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
